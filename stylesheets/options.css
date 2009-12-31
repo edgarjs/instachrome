@@ -1,0 +1,19 @@
+label {
+    display: block;
+    width: 160px;
+    float: left;
+    line-height: 1.5em;
+}
+
+input[type=text], input[type=password] {
+    border: 1px solid #888;
+    padding: 5px;
+    margin: 0;
+}
+
+#status {
+    background-color: #ffff99;
+    padding: 10px;
+    border: 1px solid #888;
+    font-weight: bold;
+}

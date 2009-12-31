@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Instapaper Options</title>
+    <script type="text/javascript" src="javascripts/options.js"></script>
+    <link href="stylesheets/options.css" rel="stylesheet" type="text/css" />
+  </head>
+<body onload="restore_options()">
+  <div id="status" style="display:none;"></div>
+  <p>
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" />
+  </p>
+  
+  <p>
+    <label for="password">Password (if have one):</label>
+    <input type="password" name="password" id="password" />
+  </p>
+
+  <p>
+    <button onclick="save_options()">Save Options</button>
+  </p>
+</body>
+</html>
