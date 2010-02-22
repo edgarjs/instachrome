@@ -8,7 +8,7 @@ function readLater(tab) {
 
 function savedComplete(xhr) {
 	if(xhr.srcElement.status == 201) {
-		chrome.browserAction.setBadgeText({text: 'saved', tabId: lastTabId});
+		chrome.browserAction.setBadgeText({text: 'done', tabId: lastTabId});
 	} else {
 		chrome.browserAction.setBadgeText({text: 'error', tabId: lastTabId});
 	}
