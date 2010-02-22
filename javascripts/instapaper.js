@@ -1,10 +1,16 @@
 var lastTabId;
 
+function readLater(tab) {
+	lastTabId = tab.id;
+	chrome.browserAction.setBadgeText({text: 'saving', tabId: lastTabId});
+	saveURL(tab.url);
+}
+
 function savedComplete(xhr) {
 	if(xhr.srcElement.status == 201) {
-		chrome.browserAction.setIcon({path: 'images/saved.png', tabId: lastTabId});
+		chrome.browserAction.setBadgeText({text: 'saved', tabId: lastTabId});
 	} else {
-		chrome.browserAction.setIcon({path: 'images/error.png', tabId: lastTabId});
+		chrome.browserAction.setBadgeText({text: 'error', tabId: lastTabId});
 	}
 }
 
@@ -30,8 +36,17 @@ function saveURL(url) {
 	xhr.send();
 }
 
-chrome.browserAction.onClicked.addListener(function(tab) {
-	lastTabId = tab.id;
-	chrome.browserAction.setIcon({path: 'images/saving.png', tabId: lastTabId});
-	saveURL(tab.url);
-});
+chrome.browserAction.onClicked.addListener(readLater);
+// For some reason, tghis event doesn't work.
+// window.addEventListener('keyup', function(e) {
+// 	switch (e.which) {
+//         // Shift + Alt + S
+// 	    case 83:
+// 	        if(e.altKey) {
+// 				chrome.tabs.getSelected(null, function(tab) {
+// 					readLater(tab);
+// 				});
+// 	        }
+// 	        break;
+// 	 }
+// }, false);
