@@ -65,6 +65,10 @@ $(function() {
         return false;
     });
     
+    $('.close').click(function() {
+        window.close();
+    });
+    
     $('form.options').submit(function() {
         o.save();
         return false;
