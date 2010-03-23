@@ -1,19 +1,86 @@
-label {
+a {
+    color: #DC8145;
+}
+
+a.ribbon {
+    top: 0;
+    position: absolute;
+    border: 0;
     display: block;
-    width: 160px;
-    float: left;
-    line-height: 1.5em;
+    width: 149px;
+    height: 149px;
+}
+a.ribbon.right {
+    right: 0;
+    background: url("../images/forkme_ribbon.png") 0 0 no-repeat;
+}
+a.ribbon.left {
+    left: 0;
+    background: url("../images/donation_ribbon.png") 0 0 no-repeat;
 }
 
-input[type=text], input[type=password] {
-    border: 1px solid #888;
-    padding: 5px;
-    margin: 0;
+.wrapper {
+    width: 500px;
+    margin: 20px auto;
 }
 
-#status {
-    background-color: #ffff99;
-    padding: 10px;
-    border: 1px solid #888;
-    font-weight: bold;
+.flash {
+    background: #FFFFCC;
+    border: 1px solid #cccc00;
+    padding: 5px 0;
+    color: #666;
+    text-align: center;
+    margin: 10px 0;
+    display: none;
+    cursor: pointer;
+}
+
+.title {
+    font-family: "Times New Roman";
+    font-size: 2em;
+}
+
+.set {
+    border: 1px solid #C7E2EF;
+    border-radius: 3px;
+    background-color: #ededed;
+}
+
+.set > legend {
+    margin-left: 12px;
+    color: #52A8CF;
+    text-shadow: 1px 1px 1px #ccc;
+    cursor: default;
+}
+
+.set > .pad {
+    padding: 6px;
+}
+
+.set .column.label {
+    text-align: center;
+    color: #888;
+}
+
+.set .column.label > .description {
+    font-size: 0.8em;
+}
+
+.set .column > input.text {
+    border: 1px solid #ccc;
+    padding: 4px;
+    margin: 3px 0;
+    color: #52A8CF;
+    border-radius: 3px;
+}
+
+.footer {
+    font-size: 0.8em;
+    color: #888;
+    text-align: center;
+    margin-top: 10em;
+}
+
+.footer a {
+    color: #333;
 }

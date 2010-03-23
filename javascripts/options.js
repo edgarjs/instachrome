@@ -1,32 +1,72 @@
-function showFlashMsg(msg) {
-    var status = document.getElementById("status");
-    status.innerHTML = msg;
-    status.style.display = 'block';
-    setTimeout(function() {
-        status.innerHTML = "";
-        status.style.display = 'none';
-    },
-    5000);
-}
+(function($) {
+    $.flash = function(msg) {
+        $('.flash').text(msg).fadeIn('fast');
+    };
+})(jQuery);
 
-function save_options() {
-    var username = document.getElementById("username");
-    var password = document.getElementById("password");
-    localStorage["username"] = username.value;
-    localStorage["password"] = password.value;
+var Options = function() {
+    var BADGE_STYLES = [
+        'Red Text',
+        'Tick Icon'
+    ];
+    
+    var values = {
+        username: null,
+        password: null,
+        show_popup: false,
+        auto_close: false,
+        badge_style: 0
+    };
+    
+    var ui = {
+        username: $('input#username'),
+        password: $('input#password'),
+        show_popup: $('input#show_popup'),
+        auto_close: $('input#auto_close'),
+        badge_style: $('select#badge_style')
+    };
+    
+    
+    return {
+        restore: function() {
+            if(location.hash === '#setup') {
+                $.flash('Enter your Instapaper credentials in order to save an URL.');
+            }
+            ui.username.val($.db('username'));
+            ui.password.val($.db('password'));
+            if($.db('show_popup') === '1') {
+                ui.show_popup.attr('checked', true);
+            }
+            if($.db('auto_close') === '1') {
+                ui.auto_close.attr('checked', true);
+            }
+            ui.badge_style.val($.db('badge_style'));
+        },
 
-    showFlashMsg('Options Saved!');
-}
+        save: function() {
+            $.db('username', ui.username.val());
+            $.db('password', ui.password.val());
+            $.db('show_popup', ui.show_popup.is(':checked') ? '1' : '0');
+            $.db('auto_close', ui.auto_close.is(':checked') ? '1' : '0');
+            $.db('badge_style', ui.badge_style.val());
+            
+            $.flash('Options saved successfully!');
+        }
+    };
+};
 
-function restore_options() {
-    var username = localStorage["username"];
 
-    if (document.location.hash == '#setup') {
-        showFlashMsg("Enter your Instapaper username and password.");
-    }
-
-    if (!username) {
-        return;
-    }
-    document.getElementById('username').value = username;
-}
+$(function() {
+    var o = new Options();
+    o.restore();
+    
+    $('.flash').click(function() {
+        $(this).fadeOut('slow');
+        return false;
+    });
+    
+    $('form.options').submit(function() {
+        o.save();
+        return false;
+    });
+});

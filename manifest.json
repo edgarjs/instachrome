@@ -2,11 +2,17 @@
     "name": "Instachrome",
     "version": "1.1.1",
     "description": "Save your URLs to Instapaper",
-    "background_page": "background.html",
     "options_page": "options.html",
+    "background_page": "background.html",
+    "content_scripts": [{
+        "matches": ["http://*/*", "https://*/*"],
+        "js": ["javascripts/keyboard.js"],
+        "run_at": "document_start"
+    }],
     "browser_action": {
         "default_icon": "images/default.png",
-        "default_title": "Read later"
+        "default_title": "Save to Instapaper",
+        "popup": "popup.html"
     },
     "icons": {
         "32": "images/icon/32.png",
@@ -15,6 +21,7 @@
     },
     "permissions": [
         "tabs",
+        "http://ajax.googleapis.com/ajax/libs/jquery/**/*",
         "http://www.instapaper.com/api/",
         "https://www.instapaper.com/api/"
     ]

@@ -1,23 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <title>Instapaper Options</title>
+    <meta charset="utf-8" />
+    <title>Instachrome Options</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/elastic.js"></script>
+    <script type="text/javascript" src="javascripts/app.js"></script>
     <script type="text/javascript" src="javascripts/options.js"></script>
+    <link href="stylesheets/elastic.css" rel="stylesheet" type="text/css" />
     <link href="stylesheets/options.css" rel="stylesheet" type="text/css" />
   </head>
-<body onload="restore_options()">
-  <div id="status" style="display:none;"></div>
-  <p>
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" />
-  </p>
-  
-  <p>
-    <label for="password">Password (if have one):</label>
-    <input type="password" name="password" id="password" />
-  </p>
+<body>
+  <a href="http://pledgie.com/campaigns/9023" class="ribbon left"></a>
+  <a href="http://github.com/edgarjs/instachrome" class="ribbon right"></a>
+  <div class="container wrapper">
+    <h1 class="title">Instachrome Options</h1>
+    
+    <div class="flash"></div>
 
-  <p>
-    <button onclick="save_options()">Save Options</button>
-  </p>
+    <form class="options" action="#" method="post">
+      <fieldset class="container set">
+        <legend>Instapaper credentials</legend>
+        <div class="container pad">
+          <div class="unit on-2 columns same-height">
+            <div class="column label">
+              <label for="username" class="vertical-center">Username:</label>
+            </div>
+            <div class="column">
+              <input type="text" class="text" spellcheck="false" name="username" id="username" />
+            </div>
+
+            <div class="column label">
+              <label for="password">Password:</label>
+              <div class="description">(If you have one)</div>
+            </div>
+            <div class="column">
+              <input type="password" class="text" name="password" id="password" />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="container set">
+        <legend>Extras</legend>
+        <div class="container pad">
+          <div class="unit on-2 columns same-height">
+            <div class="column label">
+              <label for="show_popup" class="vertical-center">Show popup:</label>
+            </div>
+            <div class="column">
+              <input type="checkbox" name="show_popup" class="vertical-center" id="show_popup" value="1" />
+            </div>
+            
+            <div class="column label">
+              <label for="auto_close">Auto close:</label>
+              <div class="description">(Close tab after saved)</div>
+            </div>
+            <div class="column">
+              <input type="checkbox" name="auto_close" class="vertical-center" id="auto_close" value="1" />
+            </div>
+
+            <div class="column label">
+              <label for="badge_style" class="vertical-center">Badge style:</label>
+            </div>
+            <div class="column">
+              <select name="badge_style" id="badge_style">
+                <option value="0">Red Text</option>
+                <option value="1">Tick icon</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <input type="submit" class="button" value="Save" /> or
+      <a href="#">Close</a>
+    </form>
+    
+    <div class="container footer">
+      <p>
+        by <a href="http://e.dgar.org">Edgar J. Suárez</a>
+        |
+        <a href="http://twitter.com/edgarjs">Twitter</a>
+        |
+        <a href="https://chrome.google.com/extensions/detail/fldildgghjoohccppflaohodcnmlacpb">Extension page</a>
+        |
+        <a href="http://instapaper.com">Instapaper</a>
+        <br />
+        This page is powered by <a href="http://elasticss.com">Elastic CSS</a>
+      </p>
+    </div>
+  </div>
 </body>
 </html>
