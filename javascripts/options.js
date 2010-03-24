@@ -5,11 +5,6 @@
 })(jQuery);
 
 var Options = function() {
-    var BADGE_STYLES = [
-        'Red Text',
-        'Tick Icon'
-    ];
-    
     var values = {
         username: null,
         password: null,

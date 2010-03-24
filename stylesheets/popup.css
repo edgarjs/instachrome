@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+}
+
+ul.links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 130px;
+}
+
+ul.links li {
+    margin: 0;
+    font-size: 13px;
+}
+
+ul.links li > a {
+    padding: 5px 0 5px 30px;
+    display: block;
+    height: 16px;
+    text-decoration: none;
+    color: #888;
+    font-family: sans-serif;
+    background: #eee 4px 5px no-repeat;
+}
+
+ul.links li > a.add {
+    background-image: url("../images/add.png");
+    border-radius: 5px 5px 0 0;
+}
+
+ul.links li > a.text {
+    background-image: url("../images/text_view.png");
+}
+
+ul.links li > a.unread {
+    background-image: url("../images/unread.png");
+}
+
+ul.links li > a.starred {
+    background-image: url("../images/starred.png");
+}
+
+ul.links li > a.archive {
+    background-image: url("../images/archive.png");
+}
+
+ul.links li > a.options {
+    background-image: url("../images/options.png");
+    border-radius: 0 0 5px 5px;
+}
+
+ul.links li > a:hover {
+    color: #85C25A;
+}
