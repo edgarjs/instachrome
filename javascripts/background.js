@@ -1,7 +1,8 @@
 var last_tab_id;
 var badge_styles = {
     TEXT: 0,
-    ICON: 1
+    ICON: 1,
+    CHROMED: 2
 };
 
 function onComplete(xhr) {
@@ -17,6 +18,9 @@ function onComplete(xhr) {
                 case badge_styles.ICON:
                     chrome.browserAction.setIcon({path: 'images/saved.png', tabId: last_tab_id});
                     break;
+                case badge_styles.CHROMED:
+                    chrome.browserAction.setIcon({path: 'images/chromed_saved.png', tabId: last_tab_id});
+                    break;
             }
         }
     } else {
@@ -27,6 +31,9 @@ function onComplete(xhr) {
                 break;
             case badge_styles.ICON:
                 chrome.browserAction.setIcon({path: 'images/error.png', tabId: last_tab_id});
+                break;
+            case badge_styles.CHROMED:
+                chrome.browserAction.setIcon({path: 'images/chromed_error.png', tabId: last_tab_id});
                 break;
         }
     }
@@ -70,6 +77,9 @@ function readLater(tab, selection) {
             break;
         case badge_styles.ICON:
             chrome.browserAction.setIcon({path: 'images/saving.png', tabId: last_tab_id});
+            break;
+        case badge_styles.CHROMED:
+            chrome.browserAction.setIcon({path: 'images/chromed_saving.png', tabId: last_tab_id});
             break;
     }
     sendRequest(tab.url, selection);
