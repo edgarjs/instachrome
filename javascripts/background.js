@@ -46,7 +46,11 @@ function sendRequest(url, selection) {
     var password = $.db('password') || '';
 
     if(!username) {
-        chrome.browserAction.setIcon({path: 'images/default.png', tabId: last_tab_id});
+        var tabImg = 'images/default.png';
+        if(parseInt($.db('badge_style')) === badge_styles.CHROMED) {
+            tabImg = 'images/chromed_default.png';
+        }
+        chrome.browserAction.setIcon({path: tabImg, tabId: last_tab_id});
         chrome.tabs.create({url: chrome.extension.getURL('options.html')});
         return;
     }
@@ -85,6 +89,13 @@ function readLater(tab, selection) {
     sendRequest(tab.url, selection);
 }
 
+chrome.tabs.onUpdated.addListener(function(tabId) {
+    var tabImg = 'images/default.png';
+    if(parseInt($.db('badge_style')) === badge_styles.CHROMED) {
+        tabImg = 'images/chromed_default.png';
+    }
+    chrome.browserAction.setIcon({path: tabImg, tabId: tabId});
+});
 chrome.browserAction.onClicked.addListener(readLater);
 // from key shortcut
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
