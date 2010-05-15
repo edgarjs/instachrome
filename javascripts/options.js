@@ -8,9 +8,15 @@ var Options = function() {
     var values = {
         username: null,
         password: null,
-        show_popup: false,
+        show_popup: '1',
         auto_close: false,
-        badge_style: 0
+        badge_style: 0,
+        shortcut: {
+            keyCode: 83,
+            altKey: true,
+            ctrlKey: false,
+            shiftKey: true
+        }
     };
     
     var ui = {
@@ -18,24 +24,45 @@ var Options = function() {
         password: $('input#password'),
         show_popup: $('input#show_popup'),
         auto_close: $('input#auto_close'),
-        badge_style: $('select#badge_style')
+        badge_style: $('select#badge_style'),
+        shortcut: $('input#shortcut')
     };
     
+    var dbOrDefault = function(db_key) {
+        return $.db(db_key) || values[db_key];
+    };
     
     return {
+        humanizeKeystrokes: function(e) {
+            var key = String.fromCharCode(e.keyCode);
+            var special = "";
+            if(e.ctrlKey) {
+                special += "Ctrl + ";
+            }
+            if(e.altKey) {
+                special += "Alt + ";
+            }
+            if(e.shiftKey) {
+                special += "Shift + ";
+            }
+            return special + key;
+        },
+        
         restore: function() {
             if(location.hash === '#setup') {
                 $.flash('Enter your Instapaper credentials in order to save an URL.');
             }
-            ui.username.val($.db('username'));
-            ui.password.val($.db('password'));
-            if($.db('show_popup') === '1') {
+            ui.username.val(dbOrDefault('username'));
+            ui.password.val(dbOrDefault('password'));
+            if(dbOrDefault('show_popup') === '1') {
                 ui.show_popup.attr('checked', true);
             }
-            if($.db('auto_close') === '1') {
+            if(dbOrDefault('auto_close') === '1') {
                 ui.auto_close.attr('checked', true);
             }
-            ui.badge_style.val($.db('badge_style'));
+            ui.badge_style.val(dbOrDefault('badge_style'));
+            ui.shortcut.val(this.humanizeKeystrokes(dbOrDefault('shortcut')))
+                .data('keys', dbOrDefault('shortcut'));
         },
 
         save: function() {
@@ -44,6 +71,7 @@ var Options = function() {
             $.db('show_popup', ui.show_popup.is(':checked') ? '1' : '0');
             $.db('auto_close', ui.auto_close.is(':checked') ? '1' : '0');
             $.db('badge_style', ui.badge_style.val());
+            $.db('shortcut', ui.shortcut.data('keys'));
             
             $.flash('Options saved successfully!');
         }
@@ -66,6 +94,16 @@ $(function() {
     
     $('form.options').submit(function() {
         o.save();
+        return false;
+    });
+    
+    $('#shortcut').keydown(function(e) {
+        $(this).val(o.humanizeKeystrokes(e)).data('keys', {
+            ctrlKey: e.ctrlKey,
+            altKey: e.altKey,
+            shiftKey: e.shiftKey,
+            keyCode: e.which
+        });
         return false;
     });
 });

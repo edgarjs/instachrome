@@ -40,6 +40,7 @@ function onComplete(xhr) {
 }
 
 // TODO: gmail support for mails.
+// TODO: get gReader single articles
 function sendRequest(url, selection) {
     var xhr = new XMLHttpRequest();
     var username = $.db('username');
@@ -100,6 +101,17 @@ chrome.browserAction.onClicked.addListener(readLater);
 // from key shortcut
 chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     if(sender.tab) {
-        readLater(sender.tab, request.selection);
+        if(request.hasOwnProperty('keystroke')) {
+            var shortcut = $.db('shortcut');
+            var ctrlKey = (shortcut.ctrlKey == request.keystroke.ctrlKey),
+                altKey = (shortcut.altKey == request.keystroke.altKey),
+                shiftKey = (shortcut.shiftKey == request.keystroke.shiftKey),
+                keyCode = (shortcut.keyCode == request.keystroke.keyCode);
+            sendResponse({
+                shortcutPressed: (ctrlKey && altKey && shiftKey & keyCode)
+            });
+        } else if(request.hasOwnProperty('selection')) {
+            readLater(sender.tab, request.selection);
+        }
     }
  });
