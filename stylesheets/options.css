@@ -74,6 +74,20 @@ a.ribbon.left {
     border-radius: 3px;
 }
 
+.column.label.auth {
+    line-height: 35px;
+    display: none;
+    font-size: 10px;
+}
+
+.column.label.auth.ok {
+    color: green;
+}
+
+.column.label.auth.error {
+    color: red;
+}
+
 .footer {
     font-size: 0.8em;
     color: #888;

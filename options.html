@@ -1,120 +1,124 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Instachrome Options</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/elastic.js"></script>
-    <script type="text/javascript" src="javascripts/app.js"></script>
-    <script type="text/javascript" src="javascripts/options.js"></script>
-    <link href="stylesheets/elastic.css" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/options.css" rel="stylesheet" type="text/css" />
-  </head>
-<body>
-  <a href="http://pledgie.com/campaigns/9023" class="ribbon left"></a>
-  <a href="http://github.com/edgarjs/instachrome" class="ribbon right"></a>
-  <div class="container wrapper">
-    <h1 class="title">Instachrome Options</h1>
-    
-    <div class="flash"></div>
+    <head>
+        <meta charset="utf-8" />
+        <title>Instachrome Options</title>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/javascript" src="javascripts/elastic.js"></script>
+        <script type="text/javascript" src="javascripts/app.js"></script>
+        <script type="text/javascript" src="javascripts/options.js"></script>
+        <link href="stylesheets/elastic.css" rel="stylesheet" type="text/css" />
+        <link href="stylesheets/options.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <a href="http://pledgie.com/campaigns/9023" class="ribbon left"></a>
+        <a href="http://github.com/edgarjs/instachrome" class="ribbon right"></a>
+        <div class="container wrapper">
+            <h1 class="title">Instachrome Options</h1>
 
-    <form class="options" action="#" method="post">
-      <fieldset class="container set">
-        <legend>Instapaper credentials</legend>
-        <div class="container pad">
-          <div class="unit on-2 columns same-height">
-            <div class="column label">
-              <label for="username" class="vertical-center">Username:</label>
-            </div>
-            <div class="column">
-              <input type="text" class="text" spellcheck="false" name="username" id="username" />
-            </div>
+            <div class="flash"></div>
 
-            <div class="column label">
-              <label for="password">Password:</label>
-              <div class="description">(If you have one)</div>
+            <form class="options" action="#" method="post">
+                <fieldset class="container set">
+                    <legend>Instapaper credentials</legend>
+                    <div class="container pad">
+                        <div class="unit on-2 columns same-height">
+                            <div class="column label">
+                                <label for="username" class="vertical-center">Username:</label>
+                            </div>
+                            <div class="column">
+                                <input type="text" class="text" spellcheck="false" name="username" id="username" />
+                            </div>
+
+                            <div class="column label">
+                                <label for="password">Password:</label>
+                                <div class="description">(If you have one)</div>
+                            </div>
+                            <div class="column">
+                                <input type="password" class="text" name="password" id="password" />
+                            </div>
+
+                            <div class="column label span-2 auth">
+                                Your username or password is incorrect. Please double check them.
+                            </div>
+
+                            <div class="column label span-2">
+                                <a href="http://www.instapaper.com/user/register" class="vertical-center description">Get a free account</a>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="container set">
+                    <legend>Extras</legend>
+                    <div class="container pad">
+                        <div class="unit on-2 columns same-height">
+                            <div class="column label">
+                                <label for="show_popup" class="vertical-center">Show popup:</label>
+                            </div>
+                            <div class="column">
+                                <input type="checkbox" name="show_popup" class="vertical-center" id="show_popup" value="1" />
+                            </div>
+
+                            <div class="column label">
+                                <label for="auto_close">Auto close:</label>
+                                <div class="description">(Close tab after saved)</div>
+                            </div>
+                            <div class="column">
+                                <input type="checkbox" name="auto_close" class="vertical-center" id="auto_close" value="1" />
+                            </div>
+
+                            <div class="column label">
+                                <label for="badge_style" class="vertical-center">Badge style:</label>
+                            </div>
+                            <div class="column">
+                                <select name="badge_style" id="badge_style">
+                                    <option value="0">Text</option>
+                                    <option value="1">Tick/Circle/Cross Icons</option>
+                                    <option value="2">Chromed icons</option>
+                                </select>
+                            </div>
+
+                            <div class="column label">
+                                <label for="shortcut" class="vertical-center">Keyboard shortcut:</label>
+                                <div class="description">(Beta - Not all shortcuts may work)</div>
+                            </div>
+                            <div class="column">
+                                <input type="text" name="shortcut" id="shortcut" class="text" />
+                            </div>
+
+                            <div class="column label">
+                                <label for="description_style" class="vertical-center">Article Description:</label>
+                            </div>
+                            <div class="column">
+                                <select name="description_style" id="description_style">
+                                    <option value="1">Use Article URL</option>
+                                    <option value="0">"Saved from Instachrome Extension"</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <input type="submit" class="button" value="Save" /> or
+                <a href="#" class="close">Close</a>
+            </form>
+
+            <div class="container footer">
+                <p>
+                    by <a href="http://edgarjs.mx">Edgar J. Suárez</a>
+                    |
+                    <a href="http://twitter.com/edgarjs">Twitter</a>
+                    |
+                    <a href="https://chrome.google.com/extensions/detail/fldildgghjoohccppflaohodcnmlacpb">Extension page</a>
+                    |
+                    <a href="http://instapaper.com">Instapaper</a>
+                    <br />
+                    This page is powered by <a href="http://elasticss.com">Elastic CSS</a>
+                    | Icons by <a href="http://famfamfam.com">famfamfam.com</a>
+                </p>
             </div>
-            <div class="column">
-              <input type="password" class="text" name="password" id="password" />
-            </div>
-            
-            <div class="column label span-2">
-              <a href="http://www.instapaper.com/user/register" class="vertical-center description">Get a free account</a>
-            </div>
-          </div>
         </div>
-      </fieldset>
-
-      <fieldset class="container set">
-        <legend>Extras</legend>
-        <div class="container pad">
-          <div class="unit on-2 columns same-height">
-            <div class="column label">
-              <label for="show_popup" class="vertical-center">Show popup:</label>
-            </div>
-            <div class="column">
-              <input type="checkbox" name="show_popup" class="vertical-center" id="show_popup" value="1" />
-            </div>
-            
-            <div class="column label">
-              <label for="auto_close">Auto close:</label>
-              <div class="description">(Close tab after saved)</div>
-            </div>
-            <div class="column">
-              <input type="checkbox" name="auto_close" class="vertical-center" id="auto_close" value="1" />
-            </div>
-
-            <div class="column label">
-              <label for="badge_style" class="vertical-center">Badge style:</label>
-            </div>
-            <div class="column">
-              <select name="badge_style" id="badge_style">
-                <option value="0">Text</option>
-                <option value="1">Tick/Circle/Cross Icons</option>
-                <option value="2">Chromed icons</option>
-              </select>
-            </div>
-            
-            <div class="column label">
-              <label for="shortcut" class="vertical-center">Keyboard shortcut:</label>
-              <div class="description">(Beta - Not all shortcuts may work)</div>
-            </div>
-            <div class="column">
-              <input type="text" name="shortcut" id="shortcut" class="text" />
-            </div>
-            
-			<div class="column label">
-              <label for="description_style" class="vertical-center">Article Description:</label>
-            </div>
-			<div class="column">
-				<select name="description_style" id="description_style">
-					<option value="0">"Saved from Instachrome Extension"</option>
-					<option value="1">Use Article URL</option>
-				</select>
-			</div>
-          </div>
-        </div>
-      </fieldset>
-
-      <input type="submit" class="button" value="Save" /> or
-      <a href="#" class="close">Close</a>
-    </form>
-    
-    <div class="container footer">
-      <p>
-        by <a href="http://edgarjs.mx">Edgar J. Suárez</a>
-        |
-        <a href="http://twitter.com/edgarjs">Twitter</a>
-        |
-        <a href="https://chrome.google.com/extensions/detail/fldildgghjoohccppflaohodcnmlacpb">Extension page</a>
-        |
-        <a href="http://instapaper.com">Instapaper</a>
-        <br />
-        This page is powered by <a href="http://elasticss.com">Elastic CSS</a>
-        | Icons by <a href="http://famfamfam.com">famfamfam.com</a>
-      </p>
-    </div>
-  </div>
-</body>
+    </body>
 </html>

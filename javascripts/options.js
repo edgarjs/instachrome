@@ -17,7 +17,7 @@ var Options = function() {
             ctrlKey: false,
             shiftKey: true
         },
-        description_style: 0
+        description_style: 1
     };
 
     var ui = {
@@ -33,6 +33,27 @@ var Options = function() {
     var dbOrDefault = function(db_key) {
         return $.db(db_key) || values[db_key];
     };
+
+    var authenticateCredentials = function() {
+        var xhr = new XMLHttpRequest();
+        var username = encodeURIComponent(ui.username.val());
+        var password = encodeURIComponent(ui.password.val());
+        xhr.onreadystatechange = function(response) {
+            if(response.srcElement && response.srcElement.readyState == 4) {
+                $('.column.label.auth').show('fast').removeClass('ok error');
+                if(response.srcElement.status == 200) {
+                    $('.column.label.auth').addClass('ok').text('Your credentials are valid.');
+                } else {
+                    $('.column.label.auth').addClass('error').text('Your username or password is incorrect. Please double check them.');
+                }
+            }
+        }
+        xhr.open("GET", 'https://www.instapaper.com/api/authenticate?username=' + username + '&password=' + password, true);
+        xhr.send();
+    };
+
+    ui.username.bind('change', authenticateCredentials);
+    ui.password.bind('change', authenticateCredentials);
 
     return {
         humanizeKeystrokes: function(e) {

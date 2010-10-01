@@ -90,7 +90,7 @@ function sendRequest(url, selection) {
             tabId: last_tab_id
         });
         chrome.tabs.create({
-            url: chrome.extension.getURL('options.html')
+            url: chrome.extension.getURL('options.html#setup')
         });
         return;
     }
@@ -100,7 +100,7 @@ function sendRequest(url, selection) {
 
         var theDescript = "Saved from Instachrome";
         if (parseInt($.db('description_style')) === description_styles.SITEURL) {
-            theDescript = tab.url.match(/https?:\/\/([^\/]+)/)[1]
+            theDescript = tab.url.match(/https?:\/\/([^\/]+)/)[1];
         }
 
         var title = encodeURIComponent(tab.title);
@@ -111,8 +111,7 @@ function sendRequest(url, selection) {
             selection: selection || theDescript
         };
         var title = title ? ("&title=" + title) : "&auto-title=1";
-        xhr.open("GET", 'https://www.instapaper.com/api/add?' +
-        $.param(params) + title, true);
+        xhr.open("GET", 'https://www.instapaper.com/api/add?' + $.param(params) + title, true);
         xhr.send();
     });
 }
