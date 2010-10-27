@@ -3,14 +3,14 @@ $(function() {
     if(!show_popup) {
         chrome.tabs.getSelected(null, function(tab) {
             chrome.extension.getBackgroundPage().readLater(tab);
+            window.close();
         });
-        window.close();
     } else {
         $('ul.links li > a.add').click(function() {
             chrome.tabs.getSelected(null, function(tab) {
                 chrome.extension.getBackgroundPage().readLater(tab);
+                window.close();
             });
-            window.close();
             return false;
         });
         
@@ -19,8 +19,8 @@ $(function() {
                 chrome.tabs.update(tab.id, {
                     url: "http://www.instapaper.com/text?u=" + encodeURIComponent(tab.url)
                 });
+                window.close();
             });
-            window.close();
             return false;
         });
         
@@ -28,7 +28,6 @@ $(function() {
             chrome.tabs.create({
                 url: "http://www.instapaper.com/u"
             });
-            window.close();
             return false;
         });
         
