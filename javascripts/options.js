@@ -16,8 +16,7 @@ var Options = function() {
             altKey: true,
             ctrlKey: false,
             shiftKey: true
-        },
-        description_style: 1
+        }
     };
 
     var ui = {
@@ -26,8 +25,7 @@ var Options = function() {
         show_popup: $('input#show_popup'),
         auto_close: $('input#auto_close'),
         badge_style: $('select#badge_style'),
-        shortcut: $('input#shortcut'),
-        description_style: $('select#description_style')
+        shortcut: $('input#shortcut')
     };
 
     var dbOrDefault = function(db_key) {
@@ -86,7 +84,6 @@ var Options = function() {
             ui.badge_style.val(dbOrDefault('badge_style'));
             ui.shortcut.val(this.humanizeKeystrokes(dbOrDefault('shortcut')))
             .data('keys', dbOrDefault('shortcut'));
-            ui.description_style.val(dbOrDefault('description_style'));
         },
 
         save: function() {
@@ -96,7 +93,6 @@ var Options = function() {
             $.db('auto_close', ui.auto_close.is(':checked') ? '1': '0');
             $.db('badge_style', ui.badge_style.val());
             $.db('shortcut', ui.shortcut.data('keys'));
-            $.db('description_style', ui.description_style.val());
 
             $.flash('Options saved successfully!');
         }

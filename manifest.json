@@ -1,6 +1,6 @@
 {
     "name": "Instachrome",
-    "version": "1.3.2",
+    "version": "1.4.0",
     "description": "Save your URLs to Instapaper",
     "options_page": "options.html",
     "background_page": "background.html",
@@ -8,6 +8,10 @@
         "matches": ["http://*/*", "https://*/*"],
         "js": ["javascripts/keyboard.js"],
         "run_at": "document_start"
+    }, {
+        "matches": ["http://www.google.com/reader/*"],
+        "js": ["javascripts/greader.js"],
+        "run_at": "document_end"
     }],
     "browser_action": {
         "default_icon": "images/default.png",
@@ -23,6 +27,7 @@
         "tabs",
         "http://ajax.googleapis.com/ajax/libs/jquery/**/*",
         "http://www.instapaper.com/api/",
-        "https://www.instapaper.com/api/"
+        "https://www.instapaper.com/api/",
+        "http://www.google.com/reader/*"
     ]
 }

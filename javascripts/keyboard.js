@@ -1,4 +1,14 @@
 // keyboard shortcut
+function getWindowSelection() {
+    var selection = '';
+    if (window && window.getSelection) {
+        selection = window.getSelection().toString();
+    } else if (document && document.getSelection) {
+        selection = document.getSelection().toString();
+    }
+    return selection;
+}
+
 window.addEventListener('keydown', function(e) {
     chrome.extension.sendRequest({keystroke: {
         keyCode: e.keyCode,
@@ -7,13 +17,8 @@ window.addEventListener('keydown', function(e) {
         shiftKey: e.shiftKey
     }}, function(response) {
         if(response.shortcutPressed) {
-            var selection = '';
-            if (window && window.getSelection) {
-    			selection = window.getSelection().toString();
-    		} else if (document && document.getSelection) {
-    			selection = document.getSelection().toString();
-    		}
-            chrome.extension.sendRequest({selection: selection}, function(r) {});
+            chrome.extension.sendRequest({selection: getWindowSelection()}, function(r) {});
         }
     });
 }, false);
+
