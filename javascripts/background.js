@@ -6,19 +6,28 @@ var badge_styles = {
 };
 
 var badge = {
-    idle: function() {
+    idle: function(tabId) {
         var tabImg = 'images/default.png';
         if (parseInt($.db('badge_style')) === badge_styles.CHROMED) {
             tabImg = 'images/chromed_default.png';
         }
-        chrome.browserAction.setIcon({
-            path: tabImg,
-            tabId: last_tab_id
-        });
-        chrome.browserAction.setBadgeText({
-            text: '',
-            tabId: last_tab_id
-        });
+        function setIcon(id) {
+            chrome.browserAction.setIcon({
+                path: tabImg,
+                tabId: id
+            });
+            chrome.browserAction.setBadgeText({
+                text: '',
+                tabId: id
+            });
+        }
+        if(!tabId) {
+            chrome.tabs.getSelected(null, function(tab) {
+                setIcon(tab.id);
+            });
+        } else {
+            setIcon(tabId);
+        }
     },
     saving: function () {
         switch (parseInt($.db('badge_style'))) {
@@ -102,13 +111,17 @@ var badge = {
 };
 
 function onComplete(xhr) {
-    if (xhr.srcElement.status == 201) {
-        if ($.db('auto_close') === '1') {
-            chrome.tabs.remove(last_tab_id);
+    try {
+        if (xhr.srcElement.status == 201) {
+            if ($.db('auto_close') === '1') {
+                chrome.tabs.remove(last_tab_id);
+            } else {
+                badge.saved();
+            }
         } else {
-            badge.saved();
+            badge.error();
         }
-    } else {
+    } catch(e) {
         badge.error();
     }
 }
@@ -134,7 +147,7 @@ function sendRequest(url, selection, title) {
                 if(response.title && response.url) {
                     sendRequest(response.url, response.selection, response.title);
                 } else {
-                    badge.idle();
+                    badge.idle(tab.id);
                 }
             });
         } else {
@@ -161,7 +174,7 @@ function readLater(tab, selection) {
 }
 
 chrome.tabs.onUpdated.addListener(function(tabId) {
-    badge.idle();
+    badge.idle(tabId);
 });
 chrome.browserAction.onClicked.addListener(readLater);
 // from key shortcut
