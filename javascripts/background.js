@@ -171,13 +171,63 @@ function readLater(tab, selection) {
     sendRequest(tab.url, selection);
 }
 
-chrome.contextMenus.create({
-    title: 'Read later (send to instapaper)',
-    contexts: ['link'],
-    onclick: function(data, tab) {
-        readLater({id: tab.id, url: data.linkUrl});
-    }
-});
+if($.db('cx_read_later') === '1') {
+    chrome.contextMenus.create({
+        title: 'Read later (send to instapaper)',
+        contexts: ['link'],
+        onclick: function(data, tab) {
+            readLater({id: tab.id, url: data.linkUrl});
+        }
+    });
+}
+
+if($.db('cx_text_view') === '1') {
+    chrome.contextMenus.create({
+        title: 'Text view',
+        contexts: ['page', 'link'],
+        onclick: function(data, tab) {
+            chrome.tabs.update(tab.id, {
+                url: "http://www.instapaper.com/text?u=" + encodeURIComponent(data.linkUrl || data.pageUrl)
+            });
+        }
+    });
+}
+
+if($.db('cx_unread') === '1') {
+    chrome.contextMenus.create({
+        title: 'Go to your unread items',
+        contexts: ['all'],
+        onclick: function(data, tab) {
+            chrome.tabs.create({
+                url: "http://www.instapaper.com/u"
+            });
+        }
+    });
+}
+
+if($.db('cx_starred') === '1') {
+    chrome.contextMenus.create({
+        title: 'Go to your starred items',
+        contexts: ['all'],
+        onclick: function(data, tab) {
+            chrome.tabs.create({
+                url: "http://www.instapaper.com/starred"
+            });
+        }
+    });
+}
+
+if($.db('cx_archive') === '1') {
+    chrome.contextMenus.create({
+        title: 'Go to your archived items',
+        contexts: ['all'],
+        onclick: function(data, tab) {
+            chrome.tabs.create({
+                url: "http://www.instapaper.com/archive"
+            });
+        }
+    });
+}
 
 chrome.tabs.onUpdated.addListener(function(tabId) {
     badge.idle(tabId);

@@ -16,7 +16,12 @@ var Options = function() {
             altKey: true,
             ctrlKey: false,
             shiftKey: true
-        }
+        },
+        cx_read_later: '1',
+        cx_text_view: '0',
+        cx_unread: '0',
+        cx_starred: '0',
+        cx_archive: '0'
     };
 
     var ui = {
@@ -25,7 +30,12 @@ var Options = function() {
         show_popup: $('input#show_popup'),
         auto_close: $('input#auto_close'),
         badge_style: $('select#badge_style'),
-        shortcut: $('input#shortcut')
+        shortcut: $('input#shortcut'),
+        cx_read_later: $('input#cx_read_later'),
+        cx_text_view: $('input#cx_text_view'),
+        cx_unread: $('input#cx_unread'),
+        cx_starred: $('input#cx_starred'),
+        cx_archive: $('input#cx_archive')
     };
 
     var dbOrDefault = function(db_key) {
@@ -81,6 +91,21 @@ var Options = function() {
             if (dbOrDefault('auto_close') === '1') {
                 ui.auto_close.attr('checked', true);
             }
+            if (dbOrDefault('cx_read_later') === '1') {
+                ui.cx_read_later.attr('checked', true);
+            }
+            if (dbOrDefault('cx_text_view') === '1') {
+                ui.cx_text_view.attr('checked', true);
+            }
+            if (dbOrDefault('cx_unread') === '1') {
+                ui.cx_unread.attr('checked', true);
+            }
+            if (dbOrDefault('cx_starred') === '1') {
+                ui.cx_starred.attr('checked', true);
+            }
+            if (dbOrDefault('cx_archive') === '1') {
+                ui.cx_archive.attr('checked', true);
+            }
             ui.badge_style.val(dbOrDefault('badge_style'));
             ui.shortcut.val(this.humanizeKeystrokes(dbOrDefault('shortcut')))
             .data('keys', dbOrDefault('shortcut'));
@@ -91,6 +116,11 @@ var Options = function() {
             $.db('password', ui.password.val());
             $.db('show_popup', ui.show_popup.is(':checked') ? '1': '0');
             $.db('auto_close', ui.auto_close.is(':checked') ? '1': '0');
+            $.db('cx_read_later', ui.cx_read_later.is(':checked') ? '1': '0');
+            $.db('cx_text_view', ui.cx_text_view.is(':checked') ? '1': '0');
+            $.db('cx_unread', ui.cx_unread.is(':checked') ? '1': '0');
+            $.db('cx_starred', ui.cx_starred.is(':checked') ? '1': '0');
+            $.db('cx_archive', ui.cx_archive.is(':checked') ? '1': '0');
             $.db('badge_style', ui.badge_style.val());
             $.db('shortcut', ui.shortcut.data('keys'));
 
