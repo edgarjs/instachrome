@@ -171,6 +171,14 @@ function readLater(tab, selection) {
     sendRequest(tab.url, selection);
 }
 
+chrome.contextMenus.create({
+    title: 'Read later (send to instapaper)',
+    contexts: ['link'],
+    onclick: function(data, tab) {
+        readLater({id: tab.id, url: data.linkUrl});
+    }
+});
+
 chrome.tabs.onUpdated.addListener(function(tabId) {
     badge.idle(tabId);
 });
