@@ -121,9 +121,7 @@ function onComplete(xhr) {
         } else {
             badge.error();
         }
-    } catch(e) {
-        badge.error();
-    }
+    } catch(e) {}
 }
 
 // TODO: gmail support for mails.
