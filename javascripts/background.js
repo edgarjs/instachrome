@@ -1,4 +1,5 @@
-var last_tab_id;
+var last_tab_id,
+    skip_auto_close;
 var badge_styles = {
     TEXT: 0,
     ICON: 1,
@@ -113,7 +114,7 @@ var badge = {
 function onComplete(xhr) {
     try {
         if (xhr.srcElement.status == 201) {
-            if ($.db('auto_close') === '1') {
+            if ($.db('auto_close') === '1' && !skip_auto_close) {
                 chrome.tabs.remove(last_tab_id);
             } else {
                 badge.saved();
@@ -165,9 +166,10 @@ function sendRequest(url, selection, title) {
     });
 }
 
-function readLater(tab, selection) {
+function readLater(tab, selection, source) {
     last_tab_id = tab.id;
     badge.saving();
+    skip_auto_close = (source === 'contextual');
     sendRequest(tab.url, selection);
 }
 
@@ -176,7 +178,7 @@ if($.db('cx_read_later') === '1') {
         title: 'Read later (send to instapaper)',
         contexts: ['link'],
         onclick: function(data, tab) {
-            readLater({id: tab.id, url: data.linkUrl});
+            readLater({id: tab.id, url: data.linkUrl}, null, 'contextual');
         }
     });
 }
