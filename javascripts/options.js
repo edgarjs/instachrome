@@ -65,16 +65,19 @@ var Options = function() {
 
     return {
         humanizeKeystrokes: function(e) {
-            var key = String.fromCharCode(e.keyCode);
-            var special = "";
-            if (e.ctrlKey) {
-                special += "Ctrl + ";
-            }
-            if (e.altKey) {
-                special += "Alt + ";
-            }
-            if (e.shiftKey) {
-                special += "Shift + ";
+            var key = "",
+                special = "";
+            if(e.keyCode >= 65 && e.keyCode <= 90) {
+                key = String.fromCharCode(e.keyCode);
+                if (e.ctrlKey) {
+                    special += "Ctrl + ";
+                }
+                if (e.altKey) {
+                    special += "Alt + ";
+                }
+                if (e.shiftKey) {
+                    special += "Shift + ";
+                }
             }
             return special + key;
         },
