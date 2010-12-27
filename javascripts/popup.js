@@ -3,12 +3,13 @@ $(function() {
     if(!show_popup) {
         chrome.tabs.getSelected(null, function(tab) {
             chrome.extension.getBackgroundPage().readLater(tab);
+            window.close();
         });
-        window.close();
     } else {
         $('ul.links li > a.add').click(function() {
             chrome.tabs.getSelected(null, function(tab) {
                 chrome.extension.getBackgroundPage().readLater(tab);
+                window.close();
             });
         });
         
@@ -17,6 +18,7 @@ $(function() {
                 chrome.tabs.update(tab.id, {
                     url: "http://www.instapaper.com/text?u=" + encodeURIComponent(tab.url)
                 });
+                window.close();
             });
         });
         
@@ -24,26 +26,29 @@ $(function() {
             chrome.tabs.create({
                 url: "http://www.instapaper.com/u"
             });
+            window.close();
         });
         
         $('ul.links li > a.starred').click(function() {
             chrome.tabs.create({
                 url: "http://www.instapaper.com/starred"
             });
+            window.close();
         });
         
         $('ul.links li > a.archive').click(function() {
             chrome.tabs.create({
                 url: "http://www.instapaper.com/archive"
             });
+            window.close();
         });
         
         $('ul.links li > a.options').click(function() {
             chrome.tabs.create({url: chrome.extension.getURL('options.html')});
+            window.close();
         });
 
         $('ul.links li > a').click(function () {
-            window.close();
             return false;
         });
     }
