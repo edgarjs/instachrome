@@ -51,6 +51,7 @@ var Options = function() {
                 $('.column.label.auth').show('fast').removeClass('ok error');
                 if(response.srcElement.status == 200) {
                     $('.column.label.auth').addClass('ok').text('Your credentials are valid.');
+                    getRSSfeed(username, password);
                 } else {
                     $('.column.label.auth').addClass('error').text('Your username or password is incorrect. Please double check them.');
                 }
@@ -58,6 +59,31 @@ var Options = function() {
         }
         xhr.open("GET", 'https://www.instapaper.com/api/authenticate?username=' + username + '&password=' + password, true);
         xhr.send();
+    };
+
+    var getRSSfeed = function(user, pass) {
+       var xhr = new XMLHttpRequest();
+       var params='username=' + user + '&password=' + pass;
+       xhr.onreadystatechange = function() {
+          if(xhr.readyState == 4 &&
+                xhr.status == 200) {
+             var xhr2 = new XMLHttpRequest();
+             xhr2.onreadystatechange = function() {
+                if(xhr2.readyState == 4 &&
+                      xhr2.status == 200) {
+                   $.db('rssfeed',
+                         /"(http:\/\/www\.instapaper\.com\/rss\/[^"]*)"/.exec(
+                            xhr2.responseText)[1]);
+                   alert($.db('rssfeed'));
+                }
+             };
+             xhr2.open('GET', 'https://www.instapaper.com/u', true);
+             xhr2.send();
+          }
+       }
+       xhr.open('POST', 'https://www.instapaper.com/user/login', true);
+       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+       xhr.send(params);
     };
 
     ui.username.bind('change', authenticateCredentials);

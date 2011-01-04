@@ -17,10 +17,29 @@ var badge = {
                 path: tabImg,
                 tabId: id
             });
-            chrome.browserAction.setBadgeText({
-                text: '',
-                tabId: id
-            });
+            var feed = $.db('rssfeed');
+            if(feed) {
+               var xhr = new XMLHttpRequest();
+               xhr.onreadystatechange = function() {
+                  if(xhr.readyState == 4 &&
+                        xhr.status == 200) {
+                     badgetext = xhr.responseText.match(/<item>/g).length;
+                     if (badgetext > 0) {
+                        chrome.browserAction.setBadgeText({
+                           text: '' + badgetext,
+                           tabId: id
+                        });
+                     }
+                  }
+               };
+               xhr.open('GET', feed, true);
+               xhr.send();
+            } else {
+               chrome.browserAction.setBadgeText({
+                  text: '',
+                  tabId: id
+               });
+            }
         }
         if(!tabId) {
             chrome.tabs.getSelected(null, function(tab) {
