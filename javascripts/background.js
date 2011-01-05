@@ -3,7 +3,8 @@ var last_tab_id,
 var badge_styles = {
     TEXT: 0,
     ICON: 1,
-    CHROMED: 2
+    CHROMED: 2,
+    UNREAD: 3
 };
 
 var badge = {
@@ -18,7 +19,7 @@ var badge = {
                 tabId: id
             });
             var feed = $.db('rssfeed');
-            if(feed) {
+            if(feed && $.db('badge_style') == badge_styles.UNREAD) {
                var xhr = new XMLHttpRequest();
                xhr.onreadystatechange = function() {
                   if(xhr.readyState == 4 &&
