@@ -27,8 +27,7 @@ var badge = {
                      badgetext = xhr.responseText.match(/<item>/g).length;
                      if (badgetext > 0) {
                         chrome.browserAction.setBadgeText({
-                           text: '' + badgetext,
-                           tabId: id
+                           text: '' + badgetext
                         });
                      }
                   }
@@ -53,6 +52,7 @@ var badge = {
     saving: function () {
         switch (parseInt($.db('badge_style'))) {
         case badge_styles.TEXT:
+        case badge_styles.UNREAD:
             // TODO Customize color
             chrome.browserAction.setBadgeBackgroundColor({
                 color: [82, 168, 207, 255],
@@ -80,6 +80,7 @@ var badge = {
     saved: function () {
         switch (parseInt($.db('badge_style'))) {
         case badge_styles.TEXT:
+        case badge_styles.UNREAD:
             chrome.browserAction.setBadgeBackgroundColor({
                 color: [53, 181, 49, 255],
                 tabId: last_tab_id
@@ -106,6 +107,7 @@ var badge = {
     error: function () {
         switch (parseInt($.db('badge_style'))) {
         case badge_styles.TEXT:
+        case badge_styles.UNREAD:
             chrome.browserAction.setBadgeBackgroundColor({
                 color: [255, 0, 0, 255],
                 tabId: last_tab_id
