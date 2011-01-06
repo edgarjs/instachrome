@@ -137,6 +137,12 @@ var Options = function() {
             ui.badge_style.val(dbOrDefault('badge_style'));
             ui.shortcut.val(this.humanizeKeystrokes(dbOrDefault('shortcut')))
             .data('keys', dbOrDefault('shortcut'));
+
+            ui.badge_style.change(function () {
+                if(parseInt($(this).val()) == 3) {
+                    getRSSfeed(ui.username.val(), ui.password.val());
+                }
+            });
         },
 
         save: function() {
