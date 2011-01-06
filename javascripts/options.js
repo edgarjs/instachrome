@@ -74,7 +74,6 @@ var Options = function() {
                    $.db('rssfeed',
                          /"(http:\/\/www\.instapaper\.com\/rss\/[^"]*)"/.exec(
                             xhr2.responseText)[1]);
-                   alert($.db('rssfeed'));
                 }
              };
              xhr2.open('GET', 'https://www.instapaper.com/u', true);
