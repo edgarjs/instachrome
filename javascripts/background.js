@@ -198,9 +198,9 @@ function readLater(tab, selection, source) {
 if($.db('cx_read_later') === '1') {
     chrome.contextMenus.create({
         title: 'Read later (send to instapaper)',
-        contexts: ['link'],
+        contexts: ['page'],
         onclick: function(data, tab) {
-            readLater({id: tab.id, url: data.linkUrl}, null, 'contextual');
+            readLater({id: tab.id, url: data.pageUrl}, null, 'contextual');
         }
     });
 }
