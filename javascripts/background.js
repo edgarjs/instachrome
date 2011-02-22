@@ -262,13 +262,15 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     if (sender.tab) {
         if (request.hasOwnProperty('keystroke')) {
             var shortcut = $.db('shortcut');
-            var ctrlKey = (shortcut.ctrlKey == request.keystroke.ctrlKey),
-            altKey = (shortcut.altKey == request.keystroke.altKey),
-            shiftKey = (shortcut.shiftKey == request.keystroke.shiftKey),
-            keyCode = (shortcut.keyCode == request.keystroke.keyCode);
-            sendResponse({
-                shortcutPressed: (ctrlKey && altKey && shiftKey & keyCode)
-            });
+            if ( shortcut.keyCode != '8') {
+                var ctrlKey = (shortcut.ctrlKey == request.keystroke.ctrlKey),
+                altKey = (shortcut.altKey == request.keystroke.altKey),
+                shiftKey = (shortcut.shiftKey == request.keystroke.shiftKey),
+                keyCode = (shortcut.keyCode == request.keystroke.keyCode);
+                sendResponse({
+                    shortcutPressed: (ctrlKey && altKey && shiftKey && keyCode)
+                });
+            }
         } else if (request.hasOwnProperty('selection')) {
             readLater(sender.tab, request.selection);
         }
