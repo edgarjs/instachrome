@@ -1,6 +1,7 @@
 {
-    "name": "Instachrome",
-    "version": "1.5.1",
+    "name": "Instachrome: PJ",
+    "update_url": "https://github.com/PDJ/instachrome/raw/master/updates.xml",
+    "version": "1.5.1.1",
     "description": "Save your URLs to Instapaper",
     "options_page": "options.html",
     "background_page": "background.html",
