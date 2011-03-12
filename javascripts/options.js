@@ -1,6 +1,6 @@
 (function($) {
     $.flash = function(msg) {
-        $('.flash').text(msg).fadeIn('fast');
+        $('.flash').html(msg).fadeIn('fast');
     };
 })(jQuery);
 
@@ -42,23 +42,14 @@ var Options = function() {
         return $.db(db_key) || values[db_key];
     };
 
-    var authenticateCredentials = function() {
-        var xhr = new XMLHttpRequest();
-        var username = encodeURIComponent(ui.username.val());
-        var password = encodeURIComponent(ui.password.val());
-        xhr.onreadystatechange = function(response) {
-            if(response.srcElement && response.srcElement.readyState == 4) {
-                $('.column.label.auth').show('fast').removeClass('ok error');
-                if(response.srcElement.status == 200) {
-                    $('.column.label.auth').addClass('ok').text('Your credentials are valid.');
-                    getRSSfeed(username, password);
-                } else {
-                    $('.column.label.auth').addClass('error').text('Your username or password is incorrect. Please double check them.');
-                }
-            }
+    var verifyCredentials = function() {
+        $('.column.label.auth').show('fast').removeClass('ok error');
+        if(Instapaper.Auth.verifyCredentials(ui.username.val(), ui.password.val())) {
+            $('.column.label.auth').addClass('ok').text('Your credentials are valid.');
+            // getRSSfeed(username, password);
+        } else {
+            $('.column.label.auth').addClass('error').text('Your username or password is incorrect. Please double check them.');
         }
-        xhr.open("GET", 'https://www.instapaper.com/api/authenticate?username=' + username + '&password=' + password, true);
-        xhr.send();
     };
 
     var getRSSfeed = function(user, pass) {
@@ -85,8 +76,8 @@ var Options = function() {
        xhr.send(params);
     };
 
-    ui.username.bind('change', authenticateCredentials);
-    ui.password.bind('change', authenticateCredentials);
+    ui.username.bind('change', verifyCredentials);
+    ui.password.bind('change', verifyCredentials);
 
     return {
         humanizeKeystrokes: function(e) {
@@ -112,7 +103,6 @@ var Options = function() {
                 $.flash('Enter your Instapaper credentials in order to save an URL.');
             }
             ui.username.val(dbOrDefault('username'));
-            ui.password.val(dbOrDefault('password'));
             if (dbOrDefault('show_popup') === '1') {
                 ui.show_popup.attr('checked', true);
             }
@@ -146,19 +136,45 @@ var Options = function() {
         },
 
         save: function() {
-            $.db('username', ui.username.val());
-            $.db('password', ui.password.val());
-            $.db('show_popup', ui.show_popup.is(':checked') ? '1': '0');
-            $.db('auto_close', ui.auto_close.is(':checked') ? '1': '0');
-            $.db('cx_read_later', ui.cx_read_later.is(':checked') ? '1': '0');
-            $.db('cx_text_view', ui.cx_text_view.is(':checked') ? '1': '0');
-            $.db('cx_unread', ui.cx_unread.is(':checked') ? '1': '0');
-            $.db('cx_starred', ui.cx_starred.is(':checked') ? '1': '0');
-            $.db('cx_archive', ui.cx_archive.is(':checked') ? '1': '0');
-            $.db('badge_style', ui.badge_style.val());
-            $.db('shortcut', ui.shortcut.data('keys'));
+            if(!$.db('oauth_token') || $.trim(ui.password.val()).length > 0) {
+                var accessToken = Instapaper.Auth.getAccessToken(
+                    ui.username.val(),
+                    ui.password.val()
+                );
+            } else {
+                var accessToken = {
+                    oauth_token: $.db('oauth_token'),
+                    oauth_token_secret: $.db('oauth_token_secret'),
+                    user_id: $.db('user_id'),
+                    username: $.db('username'),
+                    subscription_is_active: true
+                };
+            }
+            if(accessToken) {
+                $.db('oauth_token', accessToken.oauth_token);
+                $.db('oauth_token_secret', accessToken.oauth_token_secret);
+                $.db('user_id', accessToken.user_id);
+                $.db('username', accessToken.username);
+                $.db('show_popup', ui.show_popup.is(':checked') ? '1': '0');
+                $.db('auto_close', ui.auto_close.is(':checked') ? '1': '0');
+                $.db('cx_read_later', ui.cx_read_later.is(':checked') ? '1': '0');
+                $.db('cx_text_view', ui.cx_text_view.is(':checked') ? '1': '0');
+                $.db('cx_unread', ui.cx_unread.is(':checked') ? '1': '0');
+                $.db('cx_starred', ui.cx_starred.is(':checked') ? '1': '0');
+                $.db('cx_archive', ui.cx_archive.is(':checked') ? '1': '0');
+                $.db('badge_style', ui.badge_style.val());
+                $.db('shortcut', ui.shortcut.data('keys'));
 
-            $.flash('Options saved successfully!');
+                if(accessToken.subscription_is_active) {
+                    $.flash('Options saved successfully!');
+                } else {
+                    $.flash("You don't have a paid subscription at Instapaper. " +
+                            "Some features requires to have a paid subscription. " +
+                            '<a href="http://blog.instapaper.com/post/3208433429">Read more</a>');
+                }
+            } else {
+                $.flash('There was an error authenticating with Instapaper! Please check your credentials.');
+            }
         }
     };
 };
@@ -167,11 +183,6 @@ var Options = function() {
 $(function() {
     var o = new Options();
     o.restore();
-
-    $('.flash').click(function() {
-        $(this).fadeOut('slow');
-        return false;
-    });
 
     $('.close').click(function() {
         window.close();
@@ -192,3 +203,4 @@ $(function() {
         return false;
     });
 });
+

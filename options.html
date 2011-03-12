@@ -5,8 +5,14 @@
         <meta charset="utf-8" />
         <title>Instachrome Options</title>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-        <script type="text/javascript" src="javascripts/elastic.js"></script>
+        <script type="text/javascript" src="javascripts/lib/elastic.js"></script>
+        <script type="text/javascript" src="javascripts/lib/sha1.js"></script>
+        <script type="text/javascript" src="javascripts/lib/oauth.js"></script>
+        <script type="text/javascript" src="javascripts/lib/ajaxRequest.js"></script>
         <script type="text/javascript" src="javascripts/app.js"></script>
+        <script type="text/javascript" src="javascripts/instapaper.js"></script>
+        <script type="text/javascript" src="javascripts/instapaper.auth.js"></script>
+        <script type="text/javascript" src="javascripts/instapaper.api.js"></script>
         <script type="text/javascript" src="javascripts/options.js"></script>
         <link href="stylesheets/elastic.css" rel="stylesheet" type="text/css" />
         <link href="stylesheets/options.css" rel="stylesheet" type="text/css" />
@@ -25,15 +31,15 @@
                     <div class="container pad">
                         <div class="unit on-2 columns same-height">
                             <div class="column label">
-                                <label for="username" class="vertical-center">Username:</label>
+                                <label for="username">Email:</label>
+                                <div class="description">(Username is now your email address)</div>
                             </div>
                             <div class="column">
                                 <input type="text" class="text" spellcheck="false" name="username" id="username" />
                             </div>
 
                             <div class="column label">
-                                <label for="password">Password:</label>
-                                <div class="description">(If you have one)</div>
+                                <label for="password" class="vertical-center">Password:</label>
                             </div>
                             <div class="column">
                                 <input type="password" class="text" name="password" id="password" />
@@ -41,10 +47,6 @@
 
                             <div class="column label span-2 auth">
                                 Your username or password is incorrect. Please double check them.
-                            </div>
-
-                            <div class="column label span-2">
-                                <a href="http://www.instapaper.com/user/register" class="vertical-center description">Get a free account</a>
                             </div>
                         </div>
                     </div>
@@ -104,7 +106,8 @@
                         <div class="unit on-2 columns same-height">
 
                             <div class="column label">
-                                <label for="cx_read_later" class="vertical-center">Read Later</label>
+                                <label for="cx_read_later">Read Later</label>
+                                <div class="description">This item appears only when clicking on links</div>
                             </div>
                             <div class="column">
                                 <input type="checkbox" name="cx_read_later" class="vertical-center" id="cx_read_later" value="1" />
