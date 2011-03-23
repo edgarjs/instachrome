@@ -148,7 +148,7 @@ function onComplete(xhr) {
 }
 
 // TODO: gmail support for mails.
-function sendRequest(url, selection, title) {
+function sendRequest(url, selection, title, source) {
     var username = $.db('username');
     var password = $.db('password') || '';
 
@@ -174,14 +174,17 @@ function sendRequest(url, selection, title) {
         } else {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = onComplete;
-            title = encodeURIComponent(title || tab.title);
             var params = {
                 url: url,
                 username: username,
                 password: password,
                 selection: selection || url.match(/https?:\/\/([^\/]+)/)[1]
             };
-            title = title ? ("&title=" + title) : "&auto-title=1";
+            if(source == 'contextual') {
+                title = "&auto-title=1";
+            } else {
+                title = "&title=" + encodeURIComponent(title || tab.title);
+            }
             xhr.open("GET", 'https://www.instapaper.com/api/add?' + $.param(params) + title, true);
             xhr.send();
         }
@@ -192,7 +195,7 @@ function readLater(tab, selection, source) {
     last_tab_id = tab.id;
     badge.saving();
     skip_auto_close = (source === 'contextual');
-    sendRequest(tab.url, selection);
+    sendRequest(tab.url, selection, null, source);
 }
 
 if($.db('cx_read_later') === '1') {
