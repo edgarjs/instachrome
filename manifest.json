@@ -9,7 +9,7 @@
         "js": ["javascripts/keyboard.js"],
         "run_at": "document_start"
     }, {
-        "matches": ["http://www.google.com/reader/*"],
+        "matches": ["http://www.google.com/reader/*", "https://www.google.com/reader/*"],
         "js": ["javascripts/greader.js"],
         "run_at": "document_end"
     }],
