@@ -1,6 +1,6 @@
 {
     "name": "Instachrome",
-    "version": "1.5.3",
+    "version": "1.5.4",
     "description": "Save your URLs to Instapaper",
     "options_page": "options.html",
     "background_page": "background.html",
@@ -27,9 +27,7 @@
     "permissions": [
         "contextMenus",
         "tabs",
-        "http://ajax.googleapis.com/ajax/libs/jquery/**/*",
-        "http://www.instapaper.com/api/",
-        "https://www.instapaper.com/api/",
-        "http://www.google.com/reader/*"
+        "http://*/*",
+        "https://*/*"
     ]
 }

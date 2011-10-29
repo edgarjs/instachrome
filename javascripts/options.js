@@ -9,7 +9,7 @@ var Options = function() {
         username: null,
         password: null,
         show_popup: '1',
-        auto_close: false,
+        auto_close: '0',
         badge_style: 0,
         shortcut: {
             keyCode: 83,
@@ -17,6 +17,7 @@ var Options = function() {
             ctrlKey: false,
             shiftKey: true
         },
+        show_coupons: '1',
         cx_read_later: '1',
         cx_text_view: '0',
         cx_unread: '0',
@@ -31,6 +32,7 @@ var Options = function() {
         auto_close: $('input#auto_close'),
         badge_style: $('select#badge_style'),
         shortcut: $('input#shortcut'),
+        show_coupons: $('input#show_coupons'),
         cx_read_later: $('input#cx_read_later'),
         cx_text_view: $('input#cx_text_view'),
         cx_unread: $('input#cx_unread'),
@@ -119,6 +121,9 @@ var Options = function() {
             if (dbOrDefault('auto_close') === '1') {
                 ui.auto_close.attr('checked', true);
             }
+            if (dbOrDefault('show_coupons') === '1') {
+                ui.show_coupons.attr('checked', true);
+            }
             if (dbOrDefault('cx_read_later') === '1') {
                 ui.cx_read_later.attr('checked', true);
             }
@@ -150,6 +155,7 @@ var Options = function() {
             $.db('password', ui.password.val());
             $.db('show_popup', ui.show_popup.is(':checked') ? '1': '0');
             $.db('auto_close', ui.auto_close.is(':checked') ? '1': '0');
+            $.db('show_coupons', ui.show_coupons.is(':checked') ? '1': '0');
             $.db('cx_read_later', ui.cx_read_later.is(':checked') ? '1': '0');
             $.db('cx_text_view', ui.cx_text_view.is(':checked') ? '1': '0');
             $.db('cx_unread', ui.cx_unread.is(':checked') ? '1': '0');
