@@ -17,7 +17,7 @@ var Options = function() {
             ctrlKey: false,
             shiftKey: true
         },
-        show_coupons: '1',
+        show_coupons: '0',
         cx_read_later: '1',
         cx_text_view: '0',
         cx_unread: '0',
