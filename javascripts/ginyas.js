@@ -14,7 +14,7 @@ function globalEval(src, callback) {
 }
 
 $(function () {
-    if ($.db('show_coupons') === '1') {
+    if ($.db('show_coupons') == undefined || $.db('show_coupons') === '1') {
         initGinyas();
     }
 });
