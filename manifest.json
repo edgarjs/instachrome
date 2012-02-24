@@ -1,6 +1,6 @@
 {
     "name": "Instachrome",
-    "version": "1.5.6",
+    "version": "1.5.7",
     "description": "Save your URLs to Instapaper",
     "options_page": "options.html",
     "background_page": "background.html",

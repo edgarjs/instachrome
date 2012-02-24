@@ -177,9 +177,9 @@ function sendRequest(url, selection, title, source) {
             var params = {
                 url: url,
                 username: username,
-                password: password,
-                selection: selection || url.match(/https?:\/\/([^\/]+)/)[1]
+                password: password
             };
+            if (selection) { params.selection = selection; }
             if(source == 'contextual') {
                 title = "&auto-title=1";
             } else {
