@@ -22,6 +22,7 @@ ul.links li > a {
     color: #888;
     font-family: sans-serif;
     background: #eee 4px 5px no-repeat;
+    outline: none;
 }
 
 ul.links li > a.add {
