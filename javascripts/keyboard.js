@@ -18,6 +18,8 @@ window.addEventListener('keydown', function(e) {
     }}, function(response) {
         if(response.shortcutPressed) {
             chrome.extension.sendRequest({selection: getWindowSelection()}, function(r) {});
+        } else if (response.textViewPressed) {
+	    window.location = "http://www.instapaper.com/text?u=" + encodeURIComponent(window.location);
         }
     });
 }, false);

@@ -265,12 +265,18 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
     if (sender.tab) {
         if (request.hasOwnProperty('keystroke')) {
             var shortcut = $.db('shortcut');
+	    var textview_shortcut = $.db('textview_shortcut');
             var ctrlKey = (shortcut.ctrlKey == request.keystroke.ctrlKey),
             altKey = (shortcut.altKey == request.keystroke.altKey),
             shiftKey = (shortcut.shiftKey == request.keystroke.shiftKey),
             keyCode = (shortcut.keyCode == request.keystroke.keyCode);
+            var tv_ctrlKey = (textview_shortcut.ctrlKey == request.keystroke.ctrlKey),
+            tv_altKey = (textview_shortcut.altKey == request.keystroke.altKey),
+            tv_shiftKey = (textview_shortcut.shiftKey == request.keystroke.shiftKey),
+            tv_keyCode = (textview_shortcut.keyCode == request.keystroke.keyCode);
             sendResponse({
-                shortcutPressed: (ctrlKey && altKey && shiftKey & keyCode)
+                shortcutPressed: (ctrlKey && altKey && shiftKey & keyCode),
+		textViewPressed: (tv_ctrlKey && tv_altKey && tv_shiftKey & tv_keyCode)
             });
         } else if (request.hasOwnProperty('selection')) {
             readLater(sender.tab, request.selection);
