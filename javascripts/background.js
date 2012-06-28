@@ -269,8 +269,10 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
             altKey = (shortcut.altKey == request.keystroke.altKey),
             shiftKey = (shortcut.shiftKey == request.keystroke.shiftKey),
             keyCode = (shortcut.keyCode == request.keystroke.keyCode);
+	    textViewCode = (84 == request.keystroke.keyCode);
             sendResponse({
-                shortcutPressed: (ctrlKey && altKey && shiftKey & keyCode)
+                shortcutPressed: (ctrlKey && altKey && shiftKey & keyCode),
+		textViewPressed: (ctrlKey && altKey && shiftKey & textViewCode)
             });
         } else if (request.hasOwnProperty('selection')) {
             readLater(sender.tab, request.selection);
