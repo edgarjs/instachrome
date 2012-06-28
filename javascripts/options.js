@@ -17,6 +17,12 @@ var Options = function() {
             ctrlKey: false,
             shiftKey: true
         },
+        textview_shortcut: {
+            keyCode: 84,
+            altKey: true,
+            ctrlKey: false,
+            shiftKey: true
+        },
         cx_read_later: '1',
         cx_text_view: '0',
         cx_unread: '0',
@@ -31,6 +37,7 @@ var Options = function() {
         auto_close: $('input#auto_close'),
         badge_style: $('select#badge_style'),
         shortcut: $('input#shortcut'),
+        textview_shortcut: $('input#textview_shortcut'),
         cx_read_later: $('input#cx_read_later'),
         cx_text_view: $('input#cx_text_view'),
         cx_unread: $('input#cx_unread'),
@@ -138,6 +145,9 @@ var Options = function() {
             ui.shortcut.val(this.humanizeKeystrokes(dbOrDefault('shortcut')))
             .data('keys', dbOrDefault('shortcut'));
 
+            ui.textview_shortcut.val(this.humanizeKeystrokes(dbOrDefault('textview_shortcut')))
+            .data('keys', dbOrDefault('textview_shortcut'));
+
             ui.badge_style.change(function () {
                 if(parseInt($(this).val()) == 3) {
                     getRSSfeed(ui.username.val(), ui.password.val());
@@ -157,6 +167,7 @@ var Options = function() {
             $.db('cx_archive', ui.cx_archive.is(':checked') ? '1': '0');
             $.db('badge_style', ui.badge_style.val());
             $.db('shortcut', ui.shortcut.data('keys'));
+            $.db('textview_shortcut', ui.textview_shortcut.data('keys'));
 
             $.flash('Options saved successfully!');
         }
@@ -183,6 +194,16 @@ $(function() {
     });
 
     $('#shortcut').keydown(function(e) {
+        $(this).val(o.humanizeKeystrokes(e)).data('keys', {
+            ctrlKey: e.ctrlKey,
+            altKey: e.altKey,
+            shiftKey: e.shiftKey,
+            keyCode: e.which
+        });
+        return false;
+    });
+
+    $('#textview_shortcut').keydown(function(e) {
         $(this).val(o.humanizeKeystrokes(e)).data('keys', {
             ctrlKey: e.ctrlKey,
             altKey: e.altKey,
